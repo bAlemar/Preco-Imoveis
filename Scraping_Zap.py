@@ -6,6 +6,16 @@ import time
 
 class WebDriver(object):
     def __init__(self):
+        self.options = Options()
+        
+        #Roda Chrome driver sem interface gráfica
+        self.options.add_argument('--headless')
+        
+        #Evitar CloudFlare
+        self.options.add_argument('--user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36')
+        self.options.add_argument("--window-size=1280x1696")
+
+
         pass
     
     def get(self):
@@ -13,7 +23,7 @@ class WebDriver(object):
         Executa o Driver
         """
         
-        driver = Chrome()
+        driver = Chrome(options=self.options)
         self.driver = driver
         return driver
     
@@ -86,8 +96,10 @@ class WebDriver(object):
         #Executando nosso driver
         self.get()
 
+        #Entrando no Site
         self.driver.get(url)
 
+        #Evitar erros/bugs
         time.sleep(5)
 
         # Acionando Scroll Manual
@@ -98,6 +110,7 @@ class WebDriver(object):
 
         # Criando um objeto BeautifulSoup para analisar o HTML
         soup = BeautifulSoup(html, 'html.parser')
+        print(soup)
         
         # Gerando dicionário com as informações
         
