@@ -13,6 +13,8 @@ class WebDriver(object):
         
         #Evitar CloudFlare
         self.options.add_argument('--user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36')
+        
+        #Faz scroll funcionar ao utilizar headless
         self.options.add_argument("--window-size=1280x1696")
 
 
@@ -80,7 +82,7 @@ class WebDriver(object):
             dict_resultado['preco_imovel'].append(preco_imovel)
             dict_resultado['metro_quadrado'].append(metro_quadrado)
             dict_resultado['localizacao_rua'].append(localizacao_rua)
-        print(dict_resultado)
+        
         return dict_resultado
 
     def Scraping_Zap(self,url):
@@ -110,7 +112,6 @@ class WebDriver(object):
 
         # Criando um objeto BeautifulSoup para analisar o HTML
         soup = BeautifulSoup(html, 'html.parser')
-        print(soup)
         
         # Gerando dicionário com as informações
         
