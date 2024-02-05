@@ -1,6 +1,9 @@
 from bs4 import BeautifulSoup
 from selenium.webdriver import Chrome
 from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.support import expected_conditions as  EC
+from selenium.webdriver.common.by import By
 import time
 
 
@@ -29,6 +32,14 @@ class WebDriver(object):
         self.driver = driver
         return driver
     
+    def verificar_load_page(self):
+        # Xpath de resultados
+        X_path = '//*[@id="__next"]/main/section'
+        try:
+            element = WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.XPATH,X_path)))
+        except:
+            raise KeyError("A página não foi carregada corretamente")
+
     def manual_scroll(self,scroll_percentage):
         """
         Imita um scroll manual
@@ -82,7 +93,7 @@ class WebDriver(object):
             dict_resultado['preco_imovel'].append(preco_imovel)
             dict_resultado['metro_quadrado'].append(metro_quadrado)
             dict_resultado['localizacao_rua'].append(localizacao_rua)
-        
+        print(dict_resultado)
         return dict_resultado
 
     def Scraping_Zap(self,url):
@@ -101,8 +112,8 @@ class WebDriver(object):
         #Entrando no Site
         self.driver.get(url)
 
-        #Evitar erros/bugs
-        time.sleep(5)
+        # Verificar se a página foi carregada
+        self.verificar_load_page()
 
         # Acionando Scroll Manual
         self.manual_scroll(scroll_percentage=20)
