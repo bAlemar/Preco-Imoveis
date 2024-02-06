@@ -32,7 +32,6 @@ Uma vez que você tenha isso instalado, abra um terminal em sua máquina local e
     ambiente_virtual\Scripts\activate
 
 5. **Instale as Dependências:**
-- Instale de acordo com Dashboard que deseja utilizar.
    ```bash
     pip install -r requeriments.txt 
 
